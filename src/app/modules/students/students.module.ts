@@ -5,6 +5,9 @@ import { StudentsRoutingModule } from './students-routing.module';
 import { CreateStudentComponent } from './create-student/create-student.component';
 import { ListStudentsComponent } from './list-students/list-students.component';
 import { ViewStudentComponent } from './view-student/view-student.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import { ViewStudentComponent } from './view-student/view-student.component';
   ],
   imports: [
     CommonModule,
-    StudentsRoutingModule
+    StudentsRoutingModule,
+    NgbDatepickerModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class StudentsModule { }

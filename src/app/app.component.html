@@ -1,14 +1,8 @@
-<ul ngbNav [activeId]="route.fragment | async" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Sumadi students</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-    <li [ngbNavItem]="link.fragment" *ngFor="let link of links">
-        <a ngbNavLink routerLink="." [fragment]="link.fragment">{{ link.title }}</a>
-    </li>
-</ul>
-<br><br>
-<!-- and an actual outlet elsewhere -->
-<div class="container">
+<div class="container py-3">
+    <app-navbar></app-navbar>
+    <br>
+    <br>
+    <!-- and an actual outlet elsewhere -->
+
     <router-outlet></router-outlet>
 </div>

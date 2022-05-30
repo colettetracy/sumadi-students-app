@@ -1,1 +1,90 @@
-<p>create-student works!</p>
+<h3>Create student</h3>
+<br>
+<div class="card shadow-sm p-3 mb-5 bg-white">
+
+    <div class="card-body">
+        <form [formGroup]="formStudent" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="firstName">First name:</label>
+                <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="Your name" required>
+                <div *ngIf="(formStudent.get('firstName')?.dirty || formStudent.get('firstName')?.touched)">
+                    <div class="text-danger" *ngIf="formStudent.get('firstName')?.errors?.required">
+                        <small> * First name is required</small>
+                    </div>
+                    <div class="text-danger" *ngIf="formStudent.get('firstName')?.errors?.pattern">
+                        <small> * Invalid characters</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name:</label>
+                <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="Your name" required>
+                <div *ngIf="(formStudent.get('lastName')?.dirty || formStudent.get('lastName')?.touched)">
+                    <div class="text-danger" *ngIf="formStudent.get('lastName')?.errors?.required">
+                        <small> * Last name is required</small>
+                    </div>
+                    <div class="text-danger" *ngIf="formStudent.get('lastName')?.errors?.pattern">
+                        <small> * Invalid characters</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="date">Date of birth:</label>
+                <div class="input-group">
+                    <input formControlName="birthdate" class="form-control" placeholder="mm/dd/yyyy" name="dp" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="fa-solid fa-calendar-days"></i></button>
+                    </div>
+                </div>
+                <div *ngIf="(formStudent.get('birthdate')?.dirty || formStudent.get('birthdate')?.touched)">
+                    <div class="text-danger" *ngIf="formStudent.get('birthdate')?.errors?.required">
+                        <small> * Date of birth is required</small>
+                    </div>
+                    <div class="text-danger" *ngIf="formStudent.get('birthdate')?.errors?.ngbDate?.invalid">
+                        <small> * Invalid date</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input formControlName="email" type="text" class="form-control" id="email" placeholder="emailexample@test.com" required>
+                <div *ngIf="(formStudent.get('email')?.dirty || formStudent.get('email')?.touched)">
+                    <div class="text-danger" *ngIf="formStudent.get('email')?.errors?.required">
+                        <small> * Email is required</small>
+                    </div>
+                    <div class="text-danger" *ngIf="formStudent.get('email')?.errors?.email">
+                        <small> * Invalid email</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea formControlName="address" type="text" rows="4" class="form-control" id="address" placeholder="Your address" required></textarea>
+                <div *ngIf="(formStudent.get('address')?.dirty || formStudent.get('address')?.touched)">
+                    <div class="text-danger" *ngIf="formStudent.get('address')?.errors?.required">
+                        <small> * Address is required</small>
+                    </div>
+                    <div class="text-danger" *ngIf="formStudent.get('address')?.errors?.pattern">
+                        <small> * Invalid characters</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="genderOptions" id="maleOption" value="M">
+                <label class="form-check-label" for="maleOption">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="genderOptions" id="femaleOption" value="F">
+                <label class="form-check-label" for="femaleOption">Female</label>
+            </div>
+            <br>
+            <br>
+            <div class="d-flex flex-row-reverse">
+                <button type="submit" class="btn btn-success">
+                            Submit
+                          </button>
+                <button class="btn btn-secondary mr-2" [routerLink]="['/students']">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

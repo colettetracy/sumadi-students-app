@@ -7,13 +7,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Sumadi Students App';
-  links = [
-    { title: 'One', fragment: 'one' },
-    { title: 'Two', fragment: 'two' }
-  ];
   
-  constructor(public route: ActivatedRoute){
+
+  constructor(){
 
   }
 }
