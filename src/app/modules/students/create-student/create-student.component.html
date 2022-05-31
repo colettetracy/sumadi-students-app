@@ -70,12 +70,17 @@
                 </div>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="genderOptions" id="maleOption" value="M">
+                <input formControlName="gender" class="form-check-input" type="radio" id="maleOption" value="M">
                 <label class="form-check-label" for="maleOption">Male</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="genderOptions" id="femaleOption" value="F">
+                <input formControlName="gender" class="form-check-input" type="radio" id="femaleOption" value="F">
                 <label class="form-check-label" for="femaleOption">Female</label>
+            </div>
+            <div *ngIf="(formStudent.get('gender')?.dirty || formStudent.get('gender')?.touched)">
+                <div class="text-danger" *ngIf="formStudent.get('gender')?.errors?.required">
+                    <small> * Gender is required</small>
+                </div>
             </div>
             <br>
             <br>
@@ -83,7 +88,7 @@
                 <button type="submit" class="btn btn-success">
                             Submit
                           </button>
-                <button class="btn btn-secondary mr-2" [routerLink]="['/students']">Cancel</button>
+                <button class="btn btn-secondary mr-2" (click)="formStudent.reset()">Cancel</button>
             </div>
         </form>
     </div>

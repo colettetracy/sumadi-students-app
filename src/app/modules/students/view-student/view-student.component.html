@@ -1,1 +1,57 @@
-<p>view-student works!</p>
+<div class="modal-header headerModal">
+
+    <h6 class="modal-title" id="modal-basic-title">
+        <i class="fas fa-user"></i>&nbsp; View student
+    </h6>
+    <button type="button" class="close" (click)="activeModal.close()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="formStudent">
+        <div class="form-group">
+            <label for="firstName">First name:</label>
+            <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="Your name" required>
+
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name:</label>
+            <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="Your name" required>
+
+        </div>
+        <div class="form-group">
+            <label for="date">Date of birth:</label>
+            <div class="input-group">
+                <input formControlName="birthdate" class="form-control" placeholder="mm/dd/yyyy" name="dp" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="fa-solid fa-calendar-days"></i></button>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input formControlName="email" type="text" class="form-control" id="email" placeholder="emailexample@test.com" required>
+
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea formControlName="address" type="text" rows="4" class="form-control" id="address" placeholder="Your address" required></textarea>
+
+        </div>
+        <div class="form-check form-check-inline">
+            <input formControlName="gender" class="form-check-input" type="radio" id="maleOption" value="M">
+            <label class="form-check-label" for="maleOption">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input formControlName="gender" class="form-check-input" type="radio" id="femaleOption" value="F">
+            <label class="form-check-label" for="femaleOption">Female</label>
+        </div>
+
+        <br>
+        <br>
+    </form>
+</div>
+<div class="modal-footer justify-content-end">
+    <button class="btn btn-secondary ml-2" (click)="activeModal.close()">Close</button>
+</div>

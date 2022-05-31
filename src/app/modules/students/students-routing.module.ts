@@ -9,11 +9,11 @@ const routes: Routes = [
     component: ListStudentsComponent
   },
   {
-    path: 'create',
+    path: ':action',
     component: CreateStudentComponent
   },
   {
-    path: 'update/:id',
+    path: ':action/:id',
     component: CreateStudentComponent
   },
 ];

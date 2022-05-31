@@ -1,0 +1,19 @@
+.bootstrap-table .fixed-table-toolbar::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.bootstrap-table .fixed-table-toolbar::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.bootstrap-table .fixed-table-toolbar .bs-bars,
+.bootstrap-table .fixed-table-toolbar .search,
+.bootstrap-table .fixed-table-toolbar .columns {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

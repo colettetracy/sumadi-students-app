@@ -1,8 +1,99 @@
-<div class="card">
-    <h5 class="card-header">Students list</h5>
+<h3>Students list</h3>
+<br>
+<div class="card shadow-sm p-3 mb-5 bg-white">
+
     <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="bootstrap-table bootstrap4">
+            <div class="fixed-table-toolbar mt-2">
+                <div class="columns columns-right btn-group float-right">
+                    <button class="btn btn-secondary ml-2" type="button" name="refresh" aria-label="refresh" title="Refrescar" (click)="getStudents('')">
+          <i class="fa fa-sync" ></i></button>
+                </div>
+                <div class="float-right search btn-group">
+                    <input type="text" id="searchStudent" name="searchStudent" class="form-control" [(ngModel)]="Paging.Filter" placeholder="Search" [ngbTypeahead]="searchStudent" />
+                </div>
+            </div>
+            <div class="fixed-table-container">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="10vw">
+                                <div class="th-inner ">
+                                    #
+                                </div>
+                            </th>
+                            <th width="55%">
+                                <div class="th-inner">
+                                    Student name
+                                </div>
+                            </th>
+                            <th width="15%">
+                                <div style="text-align:center;" class="th-inner">
+                                    Edit
+                                </div>
+                            </th>
+                            <th width="15%">
+                                <div style="text-align:center;" class="th-inner">
+                                    Delete
+                                </div>
+                            </th>
+                            <th width="15%">
+                                <div style="text-align:center;" class="th-inner">
+                                    View details
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="no-records-found" *ngIf="students.length == 0">
+                            <td style="text-align:center;" colspan="5">No records found</td>
+                        </tr>
+                        <tr *ngFor="let item of students | slice: (Paging.PageNumber-1) * Paging.PageSize : Paging.PageNumber * Paging.PageSize; let i=index ">
+                            <td>{{i}}</td>
+                            <td>{{item.firstName}} {{item.lastName}}</td>
+                            <td>
+                                <div class="space-evenly">
+                                    <button class="btn btn-sm btn-primary" (click)="onEdit(item)"><i class="fas fa-user-pen"></i></button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="space-evenly">
+                                    <button class="btn btn-sm btn-primary" (click)="onDelete(item)"><i class="fas fa-trash-can"></i></button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="space-evenly">
+                                    <button class="btn btn-sm btn-primary" (click)="onView(item)"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="fixed-table-pagination" *ngIf="totalCount > 0">
+                <div class="fixed-table-pagination">
+                    <div class="float-left pagination-detail">
+                        <div class="form-inline">
+                            <label>Showing
+                              {{(Paging.PageNumber * Paging.PageSize) - (Paging.PageSize - 1)}} to
+                              {{ (totalCount < (Paging.PageNumber * Paging.PageSize)) ? totalCount : (Paging.PageNumber *
+                                Paging.PageSize) }} of {{totalCount}} rows.&nbsp; </label>
+                            <select class="form-control" [(ngModel)]="Paging.PageSize" name="pageSize" (change)="onPageSizeChange()">
+                        <option *ngFor="let size of pageSizes">{{size}}</option>
+                      </select>&nbsp;rows per page
+                        </div>
+                    </div>
+                    <div class="float-right pagination-detail">
+                        <ngb-pagination class="d-flex justify-content-end" [pageSize]="Paging.PageSize" [(page)]="Paging.PageNumber" [collectionSize]="totalCount" (pageChange)="onPage($event)" [maxSize]="5">
+                            <!-- <ng-template ngbPaginationFirst><i class="fas fa-angle-double-left"></i></ng-template> -->
+                            <!-- <ng-template ngbPaginationLast><i class="fas fa-angle-double-right"></i></ng-template> -->
+                            <ng-template ngbPaginationPrevious> ‹ </ng-template>
+                            <ng-template ngbPaginationNext class="page-link"> › </ng-template>
+                            <ng-template ngbPaginationEllipsis><i class="fas fa-ellipsis-h"></i></ng-template>
+                        </ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
