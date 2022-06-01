@@ -8,6 +8,7 @@ import { NavbarComponent } from './modules/layout/navbar/navbar.component';
 import { LayoutModule } from './modules/layout/layout.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfigService } from './shared/services/app-config.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export function loadConfigFactory(appConfigService: AppConfigService) {
   return () => appConfigService.loadconfig();
@@ -30,6 +31,10 @@ export function loadConfigFactory(appConfigService: AppConfigService) {
       deps: [AppConfigService],
       multi: true,
     },
+    {
+      provide: LocationStrategy,
+      useClass:HashLocationStrategy
+    }
   ],
   bootstrap: [AppComponent]
 })
