@@ -8,6 +8,7 @@ import { ViewStudentComponent } from '../view-student/view-student.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Utils } from 'src/app/shared/services/utils';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-list-students',
   templateUrl: './list-students.component.html',
@@ -17,6 +18,7 @@ export class ListStudentsComponent implements OnInit {
 
   students: Student[] = [
     {
+      studentId:"1",
       firstName: "tango",
       lastName: "Mango",
       address: "my address",
@@ -33,7 +35,7 @@ export class ListStudentsComponent implements OnInit {
 
   utils: Utils = new Utils();
 
-  constructor(private service: RequestService, private modalService: NgbModal,) { }
+  constructor(private service: RequestService, private modalService: NgbModal, private router:Router) { }
 
   ngOnInit(): void {
     this.getStudents("");
@@ -41,19 +43,22 @@ export class ListStudentsComponent implements OnInit {
   }
 
   getStudents(term: string) {
+    this.utils.loading("Loading table...")
     this.service.getQueryResult("get", term).subscribe(r => {
+      Swal.close();
       this.students = r.data?.students;
       this.totalCount = this.students.length;
       
     },
       error => {
+        Swal.close();
         this.utils.showMessage("Error", "An error has occured while getting the data", "error");
         
       });
   }
 
   onEdit(student: Student) {
-
+    this.router.navigate(["students/update", student.studentId])
   }
 
   onDelete(student: Student) {
@@ -63,7 +68,18 @@ export class ListStudentsComponent implements OnInit {
       confirmButtonText: "Confirm",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Student deleted!', '', 'success')
+        this.utils.loading("Deleting the student...");
+        this.service.put("delete", student.studentId,null).subscribe(
+          result => {
+            Swal.close();
+            this.utils.showMessage("Success!", "The student was deleted succesfully.", "success");
+            this.getStudents("");
+          },
+          error => {
+            Swal.close();
+            this.utils.showMessage("Error!", "An error has occurred, please try again later...", "error");
+          }
+        )
       }
     })
   }

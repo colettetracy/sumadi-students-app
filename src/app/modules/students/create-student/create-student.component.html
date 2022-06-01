@@ -1,4 +1,4 @@
-<h3>Create student</h3>
+<h3>{{title}} student</h3>
 <br>
 <div class="card shadow-sm p-3 mb-5 bg-white">
 
@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label for="firstName">First name:</label>
                 <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="Your name" required>
-                <div *ngIf="(formStudent.get('firstName')?.dirty || formStudent.get('firstName')?.touched)">
+                <div *ngIf="(formStudent.get('firstName')?.touched)">
                     <div class="text-danger" *ngIf="formStudent.get('firstName')?.errors?.required">
                         <small> * First name is required</small>
                     </div>
@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label for="lastName">Last name:</label>
                 <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="Your name" required>
-                <div *ngIf="(formStudent.get('lastName')?.dirty || formStudent.get('lastName')?.touched)">
+                <div *ngIf="(formStudent.get('lastName')?.touched)">
                     <div class="text-danger" *ngIf="formStudent.get('lastName')?.errors?.required">
                         <small> * Last name is required</small>
                     </div>
@@ -36,7 +36,7 @@
                         <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="fa-solid fa-calendar-days"></i></button>
                     </div>
                 </div>
-                <div *ngIf="(formStudent.get('birthdate')?.dirty || formStudent.get('birthdate')?.touched)">
+                <div *ngIf="(formStudent.get('birthdate')?.touched)">
                     <div class="text-danger" *ngIf="formStudent.get('birthdate')?.errors?.required">
                         <small> * Date of birth is required</small>
                     </div>
@@ -48,7 +48,7 @@
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input formControlName="email" type="text" class="form-control" id="email" placeholder="emailexample@test.com" required>
-                <div *ngIf="(formStudent.get('email')?.dirty || formStudent.get('email')?.touched)">
+                <div *ngIf="(formStudent.get('email')?.touched)">
                     <div class="text-danger" *ngIf="formStudent.get('email')?.errors?.required">
                         <small> * Email is required</small>
                     </div>
@@ -60,7 +60,7 @@
             <div class="form-group">
                 <label for="address">Address:</label>
                 <textarea formControlName="address" type="text" rows="4" class="form-control" id="address" placeholder="Your address" required></textarea>
-                <div *ngIf="(formStudent.get('address')?.dirty || formStudent.get('address')?.touched)">
+                <div *ngIf="(formStudent.get('address')?.touched)">
                     <div class="text-danger" *ngIf="formStudent.get('address')?.errors?.required">
                         <small> * Address is required</small>
                     </div>
@@ -77,7 +77,7 @@
                 <input formControlName="gender" class="form-check-input" type="radio" id="femaleOption" value="F">
                 <label class="form-check-label" for="femaleOption">Female</label>
             </div>
-            <div *ngIf="(formStudent.get('gender')?.dirty || formStudent.get('gender')?.touched)">
+            <div *ngIf="(formStudent.get('gender')?.touched)">
                 <div class="text-danger" *ngIf="formStudent.get('gender')?.errors?.required">
                     <small> * Gender is required</small>
                 </div>
@@ -86,9 +86,9 @@
             <br>
             <div class="d-flex flex-row-reverse">
                 <button type="submit" class="btn btn-success">
-                            Submit
+                            {{button}}
                           </button>
-                <button class="btn btn-secondary mr-2" (click)="formStudent.reset()">Cancel</button>
+                <button type="button" class="btn btn-secondary mr-2" (click)="cancel()">Cancel</button>
             </div>
         </form>
     </div>
