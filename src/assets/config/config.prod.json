@@ -1,0 +1,8 @@
+{
+    "title": "seje-catalogos-app",
+    "envName": "desarrollo",
+    "apis": {
+        "urlApi": "https://localhost:44396/api",
+        "baseUrl": "http://localhost:4200"
+    }
+}

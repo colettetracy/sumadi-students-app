@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
-import { Student } from 'src/app/models/Students';
+import { AppConfigService } from './app-config.service';
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
 
-  urlStudents:string;
+  urlStudents:string = this.config.settings.apis.urlApi;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private config:AppConfigService) { }
 
   public getById(urlSchema: string, id:string): Observable<any> {
     const url = `${this.urlStudents}${urlSchema}/${id}`;
