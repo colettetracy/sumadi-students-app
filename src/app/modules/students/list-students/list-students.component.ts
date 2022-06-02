@@ -16,17 +16,7 @@ import { Router } from '@angular/router';
 })
 export class ListStudentsComponent implements OnInit {
 
-  students: Student[] = [
-    {
-      studentId:"1",
-      firstName: "tango",
-      lastName: "Mango",
-      address: "my address",
-      birthdate:"1996/09/05",
-      email: "myemail@test.com",
-      gender:"F"
-    }
-  ];
+  students: Student[] = [];
   studentModel: Student;
   pageSizes = [10, 25, 50, 100];
   searchTerm: string = "";
@@ -39,20 +29,18 @@ export class ListStudentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudents("");
-    this.totalCount = this.students.length;
   }
 
   getStudents(term: string) {
     this.utils.loading("Loading table...")
-    this.service.getQueryResult("get", term).subscribe(r => {
+    this.service.getAll("v1/student").subscribe(r => {
       Swal.close();
-      this.students = r.data?.students;
+      this.students = r;
       this.totalCount = this.students.length;
-      
     },
       error => {
         Swal.close();
-        this.utils.showMessage("Error", "An error has occured while getting the data", "error");
+        this.utils.showMessage("Error", error.error.message, "error");
         
       });
   }
@@ -69,7 +57,7 @@ export class ListStudentsComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.utils.loading("Deleting the student...");
-        this.service.put("delete", student.studentId,null).subscribe(
+        this.service.put("v1/student", student.studentId,null).subscribe(
           result => {
             Swal.close();
             this.utils.showMessage("Success!", "The student was deleted succesfully.", "success");
@@ -77,7 +65,8 @@ export class ListStudentsComponent implements OnInit {
           },
           error => {
             Swal.close();
-            this.utils.showMessage("Error!", "An error has occurred, please try again later...", "error");
+            
+            this.utils.showMessage("Error!", error.error.message, "error");
           }
         )
       }
@@ -91,24 +80,13 @@ export class ListStudentsComponent implements OnInit {
     modalRef.componentInstance.student = student;
   }
 
-  searchStudent: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
+  searchStudent: OperatorFunction<string, readonly Student[]> = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap(term => {
-        return this.service.getQueryResult("get", term).pipe(
-          map(r => {
-            this.students = r.data?.students;
-            this.totalCount = this.students.length;
-            return [];
-          }),
-          catchError(() => {
-            this.utils.showMessage("Error", "An error has occured while getting the data", "error");
-            return [];
-          }))
-      })
+      map(term => term.length < 2 ? []
+        : this.students.filter(v => v.lastName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
-  formatter = (x: any) => `${x.firstName} ${x.lastName}`;
 
   onPageSizeChange() {
     this.Paging.PageNumber = 1;

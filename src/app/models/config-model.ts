@@ -1,6 +1,7 @@
 export interface IAppsettings {
     title: string;
     envName: string;
+    clientid:string;
     apis: {
       urlApi: string,
       baseUrl:string,
@@ -10,6 +11,6 @@ export interface IAppsettings {
     apis: { urlApi: string; baseUrl: string; };
     title!: string;
     envName!: string;
-    
+    clientid:string;
   
   }

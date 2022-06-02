@@ -59,7 +59,7 @@ export class CreateStudentComponent implements OnInit {
           this.update = true;
           if (res.id) {
             this.utils.loading("Loading data...")
-            this.request.getById("", res.id).subscribe(
+            this.request.getById("v1/student", res.id).subscribe(
               result => {
                 Swal.close();
                 this.student = result;
@@ -98,18 +98,17 @@ export class CreateStudentComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
-    let formdata = new FormData();
+    //let formdata = new FormData();
     let studentData = this.formStudent.value;
     studentData.birthdate = this.utils.dateFormatter2(studentData.birthdate);
-    formdata.append("student", this.formStudent.value);
+    //formdata.append("student", this.formStudent.value);
     if (this.formStudent.invalid) {
       this.formStudent.markAllAsTouched();
     }
     else {
       this.utils.loading("Saving the data...")
       if (!this.update) {
-        this.request.post("post", formdata).subscribe(
+        this.request.post("v1/student", studentData).subscribe(
           result => {
             Swal.close();
             this.utils.showMessage("Success!", "The student was recorded succesfully.", "success");
@@ -121,7 +120,7 @@ export class CreateStudentComponent implements OnInit {
           }
         )
       } else {
-        this.request.put("put",this.student.studentId, formdata).subscribe(
+        this.request.put("v1/student",this.student.studentId, studentData).subscribe(
           result => {
             Swal.close();
             this.utils.showMessage("Success!", "The student was modified succesfully.", "success");
