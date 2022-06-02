@@ -57,7 +57,7 @@ export class ListStudentsComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.utils.loading("Deleting the student...");
-        this.service.put("v1/student", student.studentId,null).subscribe(
+        this.service.delete("v1/student", student.studentId).subscribe(
           result => {
             Swal.close();
             this.utils.showMessage("Success!", "The student was deleted succesfully.", "success");
